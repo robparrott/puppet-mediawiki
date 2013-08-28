@@ -21,6 +21,7 @@
 #
 class mediawiki::params {
 
+  $db_server          = 'localhost'
   $tarball_url        = 'http://download.wikimedia.org/mediawiki/1.19/mediawiki-1.19.1.tar.gz'
   $conf_dir           = '/etc/mediawiki'
   $apache_daemon      = '/usr/sbin/apache2'
@@ -55,7 +56,7 @@ class mediawiki::params {
                          'thumb.php',
                          'thumb.php5',
                          'wiki.phtml']
-  
+
   case $::operatingsystem {
     redhat, centos:  {
       $web_dir            = '/var/www/html'
