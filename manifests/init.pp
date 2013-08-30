@@ -13,6 +13,7 @@
 # [*tarball_url*]      - the url to fetch the mediawiki tar archive
 # [*package_ensure*]   - state of the package
 # [*max_memory*]       - a memcached memory limit
+# [*default_vhost*]    - configure a default Apache vhost
 #
 # === Examples
 #
@@ -46,7 +47,8 @@ class mediawiki (
   $tarball_url    = $mediawiki::params::tarball_url,
   $packages       = $mediawiki::params::packages,
   $package_ensure = 'latest',
-  $max_memory     = '2048'
+  $max_memory     = '2048',
+  $default_vhost  = $mediawiki::params::default_vhost
   ) inherits mediawiki::params {
 
   $web_dir = $mediawiki::params::web_dir
@@ -57,7 +59,9 @@ class mediawiki (
   $mediawiki_dir            = regsubst($tarball_url, '^.*?/(mediawiki-\d\.\d+\.\d+).*$', '\1')
   $mediawiki_install_path   = "${web_dir}/${mediawiki_dir}"
 
-  class { 'apache': }
+  class { 'apache':
+    default_vhost => $default_vhost,
+  }
   class { 'apache::mod::php': }
 
 
