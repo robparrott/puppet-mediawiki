@@ -101,15 +101,13 @@ class mediawiki (
 
   # Download and install MediaWiki from a tarball
   exec { "get-mediawiki":
-    cwd       => $web_dir,
-    command   => "/usr/bin/wget ${tarball_url}",
+    command   => "/bin/bash -c 'pushd ${web_dir} && /usr/bin/wget ${tarball_url} && popd'",
     creates   => "${web_dir}/${tarball_name}",
     subscribe => File['mediawiki_conf_dir'],
   }
 
   exec { "unpack-mediawiki":
-    cwd       => $web_dir,
-    command   => "/bin/tar -xvzf ${tarball_name}",
+    command   => "/bin/bash -c 'pushd ${web_dir} && /bin/tar -xvzf ${tarball_name} && popd'",
     creates   => $mediawiki_install_path,
     subscribe => Exec['get-mediawiki'],
   }
