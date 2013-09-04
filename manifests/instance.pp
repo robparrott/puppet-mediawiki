@@ -4,6 +4,8 @@
 #
 # === Parameters
 #
+# [*db_host*]
+# [*db_port*]
 # [*db_name*]        - name of the mediawiki instance mysql database
 # [*db_user*]        - name of the mysql database user
 # [*db_password*]    - password for the mysql database user
@@ -39,6 +41,8 @@
 #
 define mediawiki::instance (
   $db_password,
+  $db_host        = 'localhost',
+  $db_port        = '3306',
   $db_name        = $name,
   $db_user        = "${name}_user",
   $ip             = '*',
@@ -79,7 +83,8 @@ define mediawiki::instance (
                         --server http://${server_name}            \
                         --scriptpath /${name}                     \
                         --dbtype mysql                            \
-                        --dbserver localhost                      \
+                        --dbserver ${db_host}                     \
+                        --dbport ${dp_port}                       \ 
                         --installdbuser root                      \
                         --installdbpass ${db_root_password}       \
                         --dbname ${db_name}                       \
