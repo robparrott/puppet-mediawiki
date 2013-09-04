@@ -39,6 +39,7 @@
 class mediawiki (
   $server_name,
   $admin_email,
+  $db_root_user   = 'root',
   $db_root_password,
   $doc_root       = $mediawiki::params::doc_root,
   $tarball_url    = $mediawiki::params::tarball_url,
